@@ -13,18 +13,20 @@ namespace Udp
         private IPEndPoint _endPoint;
         private UdpClient _client;
         private const int _port = 8888;
-        public Peer(IPAddress peerIp, int port)
+        public Peer(IPAddress peerIp, int port,AddressFamily addressType)
         {
-            _client = new UdpClient(_port);
             _endPoint = new IPEndPoint(peerIp, port);
+            _client = new UdpClient(_port,addressType);
+            _client.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
         }
         public void send(byte[] bytes)
         {
-            _client.Send(bytes,_endPoint);
+           
+                _client.Send(bytes, bytes.Length, _endPoint);            
         }
-        public Task<UdpReceiveResult> recieve()
+        public byte[] recieve()
         {
-            return _client.ReceiveAsync();
+            return _client.Receive(ref _endPoint);
         }
 
     }
