@@ -1,9 +1,11 @@
 ﻿using System.Net;
 using System.Text;
 using System.Net.Sockets;
+using P2P.Udp;
+
 namespace Udp
 {
-    internal class Program
+    internal class ProgramUdp
     {
         static Peer peer;
         static void Main()
