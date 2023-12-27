@@ -11,10 +11,10 @@ namespace Udp
             peer = new Peer(IPAddress.Parse("Peer's Ip"),8888 ,AddressFamily.InterNetwork);
             Thread listen = new Thread(new ThreadStart(Listen));
             listen.Start();
-            peer.send(ASCIIEncoding.ASCII.GetBytes("punching"));
+            peer.Send(ASCIIEncoding.ASCII.GetBytes("punching"));
             while (true)
             {
-                peer.send(ASCIIEncoding.ASCII.GetBytes(Console.ReadLine()));
+                peer.Send(ASCIIEncoding.ASCII.GetBytes(Console.ReadLine()));
                 Thread.Sleep(10);
             }
         }
@@ -22,8 +22,8 @@ namespace Udp
         {
             while (true)
             {
-                var ret = peer.recieve();
-                string x = ASCIIEncoding.ASCII.GetString(ret);
+                var ret = peer.Recieve();
+                string x = ASCIIEncoding.ASCII.GetString(ret.Result);
                 Console.WriteLine(x);
             }
 
